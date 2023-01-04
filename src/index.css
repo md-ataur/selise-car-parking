@@ -11,3 +11,42 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #040415;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0 0 16px;
+}
+
+p {
+  margin: 0;
+}
+
+.main-area {
+  background: #fff;
+  padding: 15px 20px;
+  border-radius: 5px;
+}
+
+.main-form-area {
+  max-width: 800px;
+  background: #fff;
+  padding: 15px 20px;
+  border-radius: 5px;
+}
