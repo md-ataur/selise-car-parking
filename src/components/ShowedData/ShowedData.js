@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
-import { RiDeleteBin6Line } from 'react-icons/ri';
+// import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import Table from '../Snippets/Table/Table';
 
@@ -36,9 +36,9 @@ const ShowedData = () => {
                         <Link to={`/update/${vehicle.id}`} className="edit-icon">
                             <FiEdit />
                         </Link>
-                        <button className="delete-icon">
+                        {/* <button className="delete-icon">
                             <RiDeleteBin6Line />
-                        </button>
+                        </button> */}
                     </div>
                 </td>
             </tr>

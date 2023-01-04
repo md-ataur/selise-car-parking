@@ -7,8 +7,9 @@ import TextInput from '../Snippets/Form/TextInput/TextInput';
 import TextSelect from '../Snippets/Form/TextSelect/TextSelect';
 
 const AddVehicle = () => {
+    const { id } = useParams();
     const [vehicleInfo, setVehicleInfo] = useState({
-        id: Math.floor(Math.random() * 90 + 10),
+        id,
         license_number: '',
         car_type: '',
         owner_name: '',
@@ -24,7 +25,6 @@ const AddVehicle = () => {
 
     const [oldVehicleInfo, setOldVehicleInfo] = useState();
     const [message, setMessage] = useState();
-    const { id } = useParams();
 
     console.log(vehicleInfo);
 
@@ -49,7 +49,7 @@ const AddVehicle = () => {
         if (oldData) {
             setOldVehicleInfo(oldData);
         }
-    }, [vehicleInfo]);
+    }, []);
 
     return (
         <div className="main-form-area">
@@ -169,7 +169,7 @@ const AddVehicle = () => {
                     rows="5"
                 />
                 <div className="form-button-area">
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit">Update</Button>
                 </div>
             </Form>
         </div>
