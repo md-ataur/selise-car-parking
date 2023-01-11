@@ -8,7 +8,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
         <div className={!isSideMenuOpen ? 'sidebar-closed sidebar' : 'sidebar'}>
             <div className="nav-menu">
                 <NavLink
-                    to="/dashboard"
+                    to=""
                     end
                     className={({ isActive }) =>
                         isActive ? 'menu-active-class' : 'no-active-class'

@@ -47,6 +47,11 @@ input:focus-visible {
   outline: 1px solid #0666eb;
 }
 
+select:focus-visible {
+  outline-offset: 0;
+  outline: 1px solid #0666eb;
+}
+
 textarea:focus-visible {
   outline-offset: 0;
   outline: 1px solid #0666eb;

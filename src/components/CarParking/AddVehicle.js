@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { addToDb, getFromDb } from '../../utility/local-storage';
 import Button from '../Snippets/Form/Button/Button';
 import Form from '../Snippets/Form/Form';
 import TextArea from '../Snippets/Form/TextArea/TextArea';
@@ -7,7 +8,6 @@ import TextSelect from '../Snippets/Form/TextSelect/TextSelect';
 
 const AddVehicle = () => {
     const [vehicleInfo, setVehicleInfo] = useState({
-        id: Math.floor(Math.random() * 90 + 10),
         license_number: '',
         car_type: '',
         owner_name: '',
@@ -20,30 +20,29 @@ const AddVehicle = () => {
         charge: '',
         address: ''
     });
-
     const [oldVehicleInfo, setOldVehicleInfo] = useState();
     const [message, setMessage] = useState();
 
-    // console.log(vehicleInfo);
-
+    /**
+     * Add vehicle
+     * @param {*} e
+     */
     const addVehicle = (e) => {
         e.preventDefault();
 
-        if (oldVehicleInfo.length > 0) {
-            localStorage.setItem('vehicles', JSON.stringify([...oldVehicleInfo, vehicleInfo]));
-            setMessage('Successfully vehicle info added');
-        } else {
-            localStorage.setItem('vehicles', JSON.stringify([vehicleInfo]));
-            setMessage('Successfully vehicle info added');
+        const id = Math.floor(Math.random() * 90 + 10);
+        const res = addToDb({ id, ...vehicleInfo });
+
+        if (res) {
+            setMessage(res);
         }
 
         setVehicleInfo({
-            id: Math.floor(Math.random() * 90 + 10),
             license_number: '',
             car_type: '',
             owner_name: '',
             owner_phone: '',
-            status: '',
+            status: 'in',
             date_of_car_entry: '',
             date_of_car_exit: '',
             time_of_car_entry: '',
@@ -53,8 +52,11 @@ const AddVehicle = () => {
         });
     };
 
+    /**
+     * Get vehicles
+     */
     useEffect(() => {
-        const oldData = JSON.parse(localStorage.getItem('vehicles') || '[]');
+        const oldData = getFromDb();
         if (oldData) {
             setOldVehicleInfo(oldData);
         }
@@ -64,12 +66,13 @@ const AddVehicle = () => {
         <div className="main-form-area">
             <h2>Add Vehicle</h2>
             {message && <h3 style={{ color: 'green' }}>{message}</h3>}
+
             <Form onSubmit={addVehicle} className="form-area">
                 <TextInput
                     onChange={(e) =>
                         setVehicleInfo({ ...vehicleInfo, license_number: e.target.value })
                     }
-                    value={vehicleInfo.license_number}
+                    value={vehicleInfo?.license_number}
                     type="text"
                     label="License Number"
                     required
@@ -79,7 +82,7 @@ const AddVehicle = () => {
                         onChange={(e) =>
                             setVehicleInfo({ ...vehicleInfo, car_type: e.target.value })
                         }
-                        value={vehicleInfo.car_type}
+                        value={vehicleInfo?.car_type}
                         required
                     >
                         <option value="">Select Car Type</option>
@@ -90,7 +93,7 @@ const AddVehicle = () => {
                 </TextSelect>
                 <TextInput
                     onChange={(e) => setVehicleInfo({ ...vehicleInfo, owner_name: e.target.value })}
-                    value={vehicleInfo.owner_name}
+                    value={vehicleInfo?.owner_name}
                     type="text"
                     label="Owner Name"
                     required
@@ -99,7 +102,7 @@ const AddVehicle = () => {
                     onChange={(e) =>
                         setVehicleInfo({ ...vehicleInfo, owner_phone: e.target.value })
                     }
-                    value={vehicleInfo.owner_phone}
+                    value={vehicleInfo?.owner_phone}
                     type="text"
                     label="Owner Phone"
                     required
@@ -108,7 +111,7 @@ const AddVehicle = () => {
                     onChange={(e) =>
                         setVehicleInfo({ ...vehicleInfo, date_of_car_entry: e.target.value })
                     }
-                    value={vehicleInfo.date_of_car_entry}
+                    value={vehicleInfo?.date_of_car_entry}
                     type="date"
                     label="Date Of Car Entry"
                     required
@@ -117,7 +120,7 @@ const AddVehicle = () => {
                     onChange={(e) =>
                         setVehicleInfo({ ...vehicleInfo, date_of_car_exit: e.target.value })
                     }
-                    value={vehicleInfo.date_of_car_exit}
+                    value={vehicleInfo?.date_of_car_exit}
                     type="date"
                     label="Date Of Car Exit"
                     required
@@ -126,7 +129,7 @@ const AddVehicle = () => {
                     onChange={(e) =>
                         setVehicleInfo({ ...vehicleInfo, time_of_car_entry: e.target.value })
                     }
-                    value={vehicleInfo.time_of_car_entry}
+                    value={vehicleInfo?.time_of_car_entry}
                     type="time"
                     label="Time Of Car Entry"
                     required
@@ -135,7 +138,7 @@ const AddVehicle = () => {
                     onChange={(e) =>
                         setVehicleInfo({ ...vehicleInfo, time_of_car_exit: e.target.value })
                     }
-                    value={vehicleInfo.time_of_car_exit}
+                    value={vehicleInfo?.time_of_car_exit}
                     type="time"
                     label="Time Of Car Exit"
                     required
@@ -143,7 +146,7 @@ const AddVehicle = () => {
                 <TextSelect label="Parking Charge" required>
                     <select
                         onChange={(e) => setVehicleInfo({ ...vehicleInfo, charge: e.target.value })}
-                        value={vehicleInfo.charge}
+                        value={vehicleInfo?.charge}
                         required
                     >
                         <option value="">Select Charge</option>
@@ -155,7 +158,7 @@ const AddVehicle = () => {
                 <div>
                     <input
                         onChange={(e) => setVehicleInfo({ ...vehicleInfo, status: e.target.value })}
-                        checked={vehicleInfo.status === 'in'}
+                        checked={vehicleInfo?.status === 'in'}
                         value="in"
                         type="radio"
                         name="status"
@@ -172,7 +175,7 @@ const AddVehicle = () => {
                 </div>
                 <TextArea
                     onChange={(e) => setVehicleInfo({ ...vehicleInfo, address: e.target.value })}
-                    value={vehicleInfo.address}
+                    value={vehicleInfo?.address}
                     label="Address"
                     cols="30"
                     rows="5"

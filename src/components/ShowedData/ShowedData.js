@@ -1,44 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
-// import { RiDeleteBin6Line } from 'react-icons/ri';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+import { deleteDb, getFromDb } from '../../utility/local-storage';
 import Table from '../Snippets/Table/Table';
 
 const ShowedData = () => {
     const [vehicles, setVehicles] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState();
+    const [toggle, setToggle] = useState(true);
 
     useEffect(() => {
-        const oldData = JSON.parse(localStorage.getItem('vehicles') || '[]');
-        if (oldData) {
-            setVehicles(oldData);
+        const getData = getFromDb();
+        if (getData) {
+            setVehicles(getData);
         }
 
-        if (oldData.length < 1) {
+        if (getData.length < 1) {
             setMessage('No data found');
         }
-    }, []);
+    }, [toggle]);
 
     let fields;
     if (vehicles) {
         fields = vehicles?.map((vehicle) => (
             <tr key={vehicle.id}>
+                <td>{vehicle.license_number}</td>
                 <td>{vehicle.owner_name}</td>
                 <td>{vehicle.car_type}</td>
-                <td>{vehicle.license_number}</td>
                 <td>{vehicle.time_of_car_entry}</td>
                 <td>{vehicle.time_of_car_exit}</td>
                 <td>{vehicle.status}</td>
-
                 <td>
                     <div className="action-btn">
                         <Link to={`/update/${vehicle.id}`} className="edit-icon">
                             <FiEdit />
                         </Link>
-                        {/* <button className="delete-icon">
+                        <button
+                            onClick={() => {
+                                deleteDb(vehicle.id);
+                                setToggle(!toggle);
+                            }}
+                            className="delete-icon"
+                        >
                             <RiDeleteBin6Line />
-                        </button> */}
+                        </button>
                     </div>
                 </td>
             </tr>
@@ -46,9 +53,9 @@ const ShowedData = () => {
     }
 
     const columns = [
+        'License no',
         'Owner name',
         'Vehicle type',
-        'License no',
         'Entry time',
         'Exit time',
         'Status',
