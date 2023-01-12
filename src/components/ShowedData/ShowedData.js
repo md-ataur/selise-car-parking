@@ -4,6 +4,7 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import { deleteDb, getFromDb } from '../../utility/local-storage';
 import Table from '../Snippets/Table/Table';
+import './ShowedData.css';
 
 const ShowedData = () => {
     const [vehicles, setVehicles] = useState();

@@ -1,5 +1,6 @@
-import { BiCategory } from 'react-icons/bi';
 import { AiFillCar } from 'react-icons/ai';
+import { BiCategory } from 'react-icons/bi';
+import { IoCarSport } from 'react-icons/io5';
 import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 
@@ -29,7 +30,27 @@ const Sidebar = ({ isSideMenuOpen }) => {
                         </div>
                     </div>
                 </NavLink>
-
+                <NavLink
+                    to="list"
+                    className={({ isActive }) =>
+                        isActive ? 'menu-active-class' : 'no-active-class'
+                    }
+                >
+                    <div className="menu-list ">
+                        <div className="menu-list-left">
+                            <span className="menu-list-left-icon">
+                                <IoCarSport />
+                            </span>
+                            <span
+                                className={
+                                    !isSideMenuOpen ? 'sidebar-closed-menu' : 'menu-list-left-text'
+                                }
+                            >
+                                Vehicles List
+                            </span>
+                        </div>
+                    </div>
+                </NavLink>
                 <NavLink
                     to="add"
                     className={({ isActive }) =>
