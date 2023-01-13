@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import React, { useEffect, useState } from 'react';
-import { getFromDb } from '../../../utility/local-storage';
+import { getFromDb } from '../../../db/local-storage';
 import DataPieChart from '../../Chart/DataPieChart';
 import './Dashboard.css';
 

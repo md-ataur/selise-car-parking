@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { addToDb, getFromDb } from '../../utility/local-storage';
+import { addToDb, getFromDb } from '../../db/local-storage';
 import Button from '../Snippets/Form/Button/Button';
 import Form from '../Snippets/Form/Form';
 import TextArea from '../Snippets/Form/TextArea/TextArea';
@@ -50,6 +50,8 @@ const AddVehicle = () => {
             charge: '',
             address: ''
         });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     /**

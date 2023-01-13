@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
-import { deleteDb, getFromDb } from '../../utility/local-storage';
+import { deleteDb, getFromDb } from '../../db/local-storage';
 import Table from '../Snippets/Table/Table';
 import './ShowedData.css';
 
